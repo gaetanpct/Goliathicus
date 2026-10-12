@@ -1,6 +1,6 @@
-# Les Goliaths de Picuite
+# Goliathicus
 
-Jeu de stratégie en ligne pour 2 à 4 joueurs, inspiré du Stratego, dans le Royaume Loufoque.
+Jeu de stratégie en ligne pour 2 à 4 joueurs, inspiré du Stratego, dans un royaume de fantasy.
 
 ## Lancer en local
     npm install

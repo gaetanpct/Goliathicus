@@ -1,5 +1,5 @@
 // ============================================================
-// LES GOLIATHS DE PICUITE — Génération des plateaux
+// GOLIATHICUS — Génération des plateaux
 // Plateau en croix (3 ou 4 joueurs) ou en duel rectangulaire (2 joueurs).
 // Le relief neutre est toujours symétrique, donc équitable.
 // ============================================================

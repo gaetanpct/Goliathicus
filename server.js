@@ -1,5 +1,5 @@
 // ============================================================
-// LES GOLIATHS DE PICUITE — Serveur (Express + Socket.io)
+// GOLIATHICUS — Serveur (Express + Socket.io)
 // Serveur autoritaire : le client ne reçoit jamais le rang des pièces
 // cachées de ses adversaires.
 // ============================================================
@@ -557,4 +557,4 @@ setInterval(() => {
   });
 }, 5 * 60 * 1000);
 
-server.listen(PORT, () => console.log("Les Goliaths de Picuite écoutent sur le port " + PORT));
+server.listen(PORT, () => console.log("Goliathicus écoute sur le port " + PORT));

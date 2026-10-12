@@ -1,5 +1,5 @@
 // ============================================================
-// LES GOLIATHS DE PICUITE — Moteur de règles (autoritaire, pur)
+// GOLIATHICUS — Moteur de règles (autoritaire, pur)
 // Utilisé côté serveur ; le client ne reçoit que l'état filtré.
 // ============================================================
 (function (root, factory) {
@@ -230,7 +230,7 @@
       this.current = 0;
       this.round = 1;
       this.turn = 1;
-      this._pushEvent({ kind: "start", text: "⚔️ La bataille de Picuite commence ! Que le plus rusé l'emporte." });
+      this._pushEvent({ kind: "start", text: "⚔️ La bataille commence ! Que le plus rusé l'emporte." });
       this._beginTurn();
     }
 
@@ -370,7 +370,7 @@
         case "defused": ev.text = `⛏️ ${na} désamorce la ${ld} de ${nd} avec son Nain Démineur !`; pa.stats.defused++; break;
         case "exploded": ev.text = `💥 ${la} de ${na} se jette sur une tarte piégée de ${nd} et explose !`; pd.stats.exploded++; break;
         case "flag": ev.text = `🥚 ${na} croque l'Œuf de Dragon de ${nd} !`; break;
-        case "ratKing": ev.text = `🐀 Coup de théâtre ! Le Petit Rat de Cour de ${na} terrasse le Roi Grognon de ${nd} !`; pa.stats.kingsSlain++; break;
+        case "ratKing": ev.text = `🐀 Coup de théâtre ! Le Rat Espion de ${na} terrasse le Roi de ${nd} !`; pa.stats.kingsSlain++; break;
         case "attWins": ev.text = `${la} de ${na} bat ${defHidden ? "une pièce" : ld} de ${nd}.`; break;
         case "defWins": ev.text = defHidden ? `${la} de ${na} se casse les dents sur une pièce cachée dans la forêt de ${nd}.` : `${la} de ${na} se fait battre par ${ld} de ${nd}.`; break;
         case "tie": ev.text = `${la} de ${na} et ${ld} de ${nd} s'éliminent mutuellement.`; break;
@@ -412,8 +412,8 @@
       // éliminations
       if (result === "flag") this._eliminate(di, "L'Œuf de Dragon a été croqué.", pi);
       if (this.settings.mode === "kinghunt") {
-        if (def.type === "roi" && defDies) this._eliminate(di, "Le Roi Grognon est tombé.", pi);
-        if (att.type === "roi" && attDies) this._eliminate(pi, "Le Roi Grognon est tombé.", di);
+        if (def.type === "roi" && defDies) this._eliminate(di, "Le Roi est tombé.", pi);
+        if (att.type === "roi" && attDies) this._eliminate(pi, "Le Roi est tombé.", di);
       }
     }
 
@@ -474,13 +474,13 @@
         this.grid[ca.r][ca.c] = b; this.grid[cb.r][cb.c] = a;
         a.r = cb.r; a.c = cb.c; b.r = ca.r; b.c = ca.c;
         a.hist = []; b.hist = [];
-        this._pushEvent({ kind: "power", power: pid, owner: pi, cells: [ca, cb], swap: [ca, cb], text: `🎭 ${pl.name} joue un Coup de Théâtre et échange deux de ses pièces !` });
+        this._pushEvent({ kind: "power", power: pid, owner: pi, cells: [ca, cb], swap: [ca, cb], text: `🔄 ${pl.name} échange la place de deux de ses pièces !` });
       } else if (pid === "longuevue") {
         const t = find(data.target);
         if (!t || this.players[t.owner].team === pl.team || !this.canSeePiece(pi, t)) return { ok: false, error: "Choisis une pièce ennemie visible." };
         t.revealedTo.add(pi);
         this.players.forEach((q, qi) => { if (q.team === pl.team) t.revealedTo.add(qi); });
-        this._pushEvent({ kind: "power", power: pid, owner: pi, private: [pi], privateTeam: pl.team, target: { r: t.r, c: t.c, id: t.id }, cells: [], text: `🔭 ${pl.name} braque sa Longue-vue sur une pièce ennemie.` });
+        this._pushEvent({ kind: "power", power: pid, owner: pi, private: [pi], privateTeam: pl.team, target: { r: t.r, c: t.c, id: t.id }, cells: [], text: `🔭 ${pl.name} utilise son Œil d'aigle sur une pièce ennemie.` });
       } else if (pid === "sieste") {
         const t = find(data.target);
         if (!t || this.players[t.owner].team === pl.team || !this.canSeePiece(pi, t)) return { ok: false, error: "Choisis une pièce ennemie visible." };
@@ -488,7 +488,7 @@
         this._pushEvent({ kind: "power", power: pid, owner: pi, target: { r: t.r, c: t.c, id: t.id }, cells: [{ r: t.r, c: t.c }], text: `😴 ${pl.name} endort une pièce de ${this.pname(t.owner)} pour deux tours !` });
       } else if (pid === "ruee") {
         pl.bonus = 1;
-        this._pushEvent({ kind: "power", power: pid, owner: pi, cells: [], text: `⚡ ${pl.name} lance sa Ruée Dorée : deux déplacements d'affilée !` });
+        this._pushEvent({ kind: "power", power: pid, owner: pi, cells: [], text: `⚡ ${pl.name} lance sa Ruée : deux déplacements d'affilée !` });
       } else return { ok: false, error: "Pouvoir inconnu." };
       pl.charges--;
       pl.stats.powers++;
@@ -559,9 +559,9 @@
       this.winners = winners;
       this.endReason = reason;
       let text;
-      if (!winners.length) text = "🤝 Match nul, personne ne l'emporte au royaume de Picuite.";
+      if (!winners.length) text = "🤝 Match nul, personne ne l'emporte.";
       else if (this.settings.teams) text = `🏆 L'équipe ${winners.map((w) => this.pname(w)).join(" et ")} remporte la bataille !`;
-      else if (winners.length === 1) text = `🏆 ${this.pname(winners[0])} remporte la bataille de Picuite !`;
+      else if (winners.length === 1) text = `🏆 ${this.pname(winners[0])} remporte la bataille !`;
       else text = `🤝 Égalité entre ${winners.map((w) => this.pname(w)).join(" et ")} !`;
       this._pushEvent({ kind: "end", text, winners, reason });
     }
@@ -838,11 +838,11 @@
         pl.forEach((p, i) => { const v = fn(p); if (v > bv) { bv = v; b = i; } });
         return bv >= min ? { seat: b, value: bv } : null;
       };
-      const a1 = best((p) => p.stats.kills, 1); if (a1) awards.push({ icon: "🪓", title: "Le Boucher de Picuite", seat: a1.seat, text: `${a1.value} pièce${a1.value > 1 ? "s" : ""} ennemie${a1.value > 1 ? "s" : ""} envoyée${a1.value > 1 ? "s" : ""} au tapis` });
+      const a1 = best((p) => p.stats.kills, 1); if (a1) awards.push({ icon: "🪓", title: "Le Boucher", seat: a1.seat, text: `${a1.value} pièce${a1.value > 1 ? "s" : ""} ennemie${a1.value > 1 ? "s" : ""} envoyée${a1.value > 1 ? "s" : ""} au tapis` });
       const a2 = best((p) => p.stats.lost, 1); if (a2) awards.push({ icon: "🪂", title: "Le Kamikaze", seat: a2.seat, text: `${a2.value} attaque${a2.value > 1 ? "s" : ""} perdue${a2.value > 1 ? "s" : ""}, mais avec panache` });
       const a3 = best((p) => p.stats.defused, 1); if (a3) awards.push({ icon: "⛏️", title: "Le Pâtissier Démineur", seat: a3.seat, text: `${a3.value} tarte${a3.value > 1 ? "s" : ""} désamorcée${a3.value > 1 ? "s" : ""}` });
       const a4 = best((p) => p.stats.exploded, 1); if (a4) awards.push({ icon: "🥧", title: "Le Maître Tartier", seat: a4.seat, text: `${a4.value} attaquant${a4.value > 1 ? "s" : ""} explosé${a4.value > 1 ? "s" : ""} sur ses tartes` });
-      const a5 = best((p) => p.stats.kingsSlain, 1); if (a5) awards.push({ icon: "🐀", title: "Le Régicide à Moustaches", seat: a5.seat, text: "A fait tomber un roi grâce à un petit rat" });
+      const a5 = best((p) => p.stats.kingsSlain, 1); if (a5) awards.push({ icon: "🐀", title: "Le Régicide", seat: a5.seat, text: "A fait tomber un roi grâce à un petit rat" });
       const a6 = best((p) => p.stats.cells, 1); if (a6) awards.push({ icon: "👟", title: "Le Grand Voyageur", seat: a6.seat, text: `${a6.value} cases parcourues` });
       const a7 = best((p) => p.stats.powers, 1); if (a7) awards.push({ icon: "✨", title: "Le Magicien du Dimanche", seat: a7.seat, text: `${a7.value} pouvoir${a7.value > 1 ? "s" : ""} de maison utilisé${a7.value > 1 ? "s" : ""}` });
       const lazy = pl.map((p, i) => ({ i, v: p.stats.attacks })).sort((a, b) => a.v - b.v)[0];

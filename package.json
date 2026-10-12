@@ -1,7 +1,7 @@
 {
-  "name": "goliaths-de-picuite",
+  "name": "goliathicus",
   "version": "1.0.0",
-  "description": "Les Goliaths de Picuite - jeu de stratégie et de bluff en ligne pour 2 à 4 joueurs",
+  "description": "Goliathicus - jeu de stratégie et de bluff en ligne pour 2 à 4 joueurs",
   "main": "server.js",
   "scripts": { "start": "node server.js" },
   "engines": { "node": ">=18" },

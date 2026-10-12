@@ -35,14 +35,20 @@
         ]),
       ]));
     });
-    body.appendChild(section("🧩 Les pièces", [p("Plus la force est grande, plus la pièce est puissante. Le 10 est le meilleur."), grid]));
+    const ladder = el("div", { class: "ladder" });
+    ORDER.filter((id) => PIECES[id].mobile && !PIECES[id].special).forEach((id, k, arr) => {
+      const d = PIECES[id];
+      ladder.appendChild(el("span", { class: "ladder__step", title: d.name }, [el("i", { text: d.icon }), el("b", { text: String(d.rank) })]));
+      if (k < arr.length - 1) ladder.appendChild(el("span", { class: "ladder__sep", text: "›" }));
+    });
+    body.appendChild(section("🧩 Les pièces", [p("Plus la force est grande, plus la pièce est puissante. Le 10 est le meilleur. Le chiffre est écrit sur chaque pièce quand tu la vois."), ladder, grid]));
 
     body.appendChild(section("🌍 Le terrain", [
       p("💧 <b>Lac</b> : infranchissable. 🌲 <b>Forêt</b> : si le défenseur y gagne un combat, il reste caché. 🟤 <b>Marais</b> : une pièce qui s'y arrête s'endort un tour. 🪨 <b>Ruines</b> : infranchissables, ce sont les restes d'un camp éliminé. 🏆 <b>Reliques</b> : en mode Conquête, chaque relique tenue au début de ton tour rapporte un point."),
     ]));
 
     body.appendChild(section("🛡️ Les modes de jeu", [
-      p("<b>Classique</b> : croque l'Œuf. <b>Conquête</b> : tiens les reliques et atteins l'objectif de points. <b>Chasse au roi</b> : pas d'œuf, la partie est perdue quand ton Roi Grognon tombe (un duel de deux rois est gagné par l'attaquant)."),
+      p("<b>Classique</b> : croque l'Œuf. <b>Conquête</b> : tiens les reliques et atteins l'objectif de points. <b>Chasse au roi</b> : pas d'œuf, la partie est perdue quand ton Roi tombe (un duel de deux rois est gagné par l'attaquant)."),
       p("En plus : <b>Équipes</b> 2 contre 2, <b>Brouillard</b> (tu ne vois que près de tes pièces), <b>Chaos</b> (événements surprise), et <b>Express</b> (petit plateau, 10 minutes)."),
     ]));
 
@@ -61,9 +67,9 @@
 
     body.appendChild(section("💡 Petits conseils", [
       el("ul", { class: "rules__list" }, [
-        el("li", { text: "Un Lutin Zoom lancé sur une pièce inconnue coûte peu et t'apprend beaucoup." }),
+        el("li", { text: "Un Lutin Éclaireur lancé sur une pièce inconnue coûte peu et t'apprend beaucoup." }),
         el("li", { text: "Une pièce qui n'a jamais bougé est peut-être une tarte piégée ou l'Œuf. Garde un Nain Démineur pour elles." }),
-        el("li", { text: "Ton Roi Grognon est imbattable... sauf par un Petit Rat qui l'attaque. Méfie-toi des rats !" }),
+        el("li", { text: "Ton Roi est imbattable... sauf par un Rat Espion qui l'attaque. Méfie-toi des rats !" }),
         el("li", { text: "Une même pièce ne peut pas faire plus de 3 déplacements d'affilée entre deux mêmes cases." }),
       ]),
     ]));

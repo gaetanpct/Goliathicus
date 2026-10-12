@@ -1,5 +1,5 @@
 // ============================================================
-// LES GOLIATHS DE PICUITE — Intelligence artificielle
+// GOLIATHICUS — Intelligence artificielle
 // L'IA joue comme un humain : elle ne voit que l'état filtré qui lui est
 // envoyé (jamais le rang des pièces cachées) et garde sa propre mémoire.
 // ============================================================
@@ -17,15 +17,15 @@
       noise: 14, aggression: 0.5, danger: 0.0, progress: 0.8, useKnowledge: 0.55, powerChance: 0.04, placement: "random", think: [350, 700], flagGuard: 0, hunt: 0,
     },
     normal: {
-      id: "normal", label: "Chevalier Poulet", icon: "🐓", desc: "Évalue les risques et attaque quand c'est rentable.",
+      id: "normal", label: "Chevalier", icon: "🛡️", desc: "Évalue les risques et attaque quand c'est rentable.",
       noise: 6, aggression: 0.9, danger: 0.4, progress: 1.0, useKnowledge: 1, powerChance: 0.25, placement: "mixed", think: [500, 1000], flagGuard: 0.6, hunt: 0.5,
     },
     hard: {
-      id: "hard", label: "Sorcier Pschitt", icon: "🧙", desc: "Protège son œuf, piste les pièces immobiles et bluffe un peu.",
+      id: "hard", label: "Sorcier", icon: "🧙", desc: "Protège son œuf, piste les pièces immobiles et bluffe un peu.",
       noise: 3, aggression: 1.0, danger: 0.7, progress: 1.0, useKnowledge: 1, powerChance: 0.6, placement: "smart", think: [650, 1300], flagGuard: 1, hunt: 1,
     },
     expert: {
-      id: "expert", label: "Grand Dragon Pépé", icon: "🐲", desc: "Calcule tout, se souvient de tout, n'oublie jamais une tarte.",
+      id: "expert", label: "Dragon", icon: "🐲", desc: "Calcule tout, se souvient de tout, n'oublie jamais une tarte.",
       noise: 1.2, aggression: 1.05, danger: 1.0, progress: 1.1, useKnowledge: 1, powerChance: 0.9, placement: "smart", think: [800, 1600], flagGuard: 1.3, hunt: 1.4,
     },
   };

@@ -1,5 +1,5 @@
 // ============================================================
-// LES GOLIATHS DE PICUITE — Réglages de partie (source unique)
+// GOLIATHICUS — Réglages de partie (source unique)
 // Sert à générer le salon, valider les valeurs et fournir les défauts.
 // ============================================================
 (function (root, factory) {
@@ -16,7 +16,7 @@
           options: [
             { value: "classic", label: "Classique", icon: "🥚", desc: "Croque l'Œuf de Dragon d'un adversaire pour l'éliminer. Le dernier en lice gagne." },
             { value: "conquest", label: "Conquête", icon: "🏆", desc: "Tiens les reliques du centre pour marquer des points. Le premier à atteindre l'objectif gagne, ou le dernier en lice." },
-            { value: "kinghunt", label: "Chasse au roi", icon: "👑", desc: "Pas d'œuf ! Un camp est éliminé quand son Roi Grognon tombe. Protège ton roi, planque-le bien." },
+            { value: "kinghunt", label: "Chasse au roi", icon: "👑", desc: "Pas d'œuf ! Un camp est éliminé quand son Roi tombe. Protège ton roi, planque-le bien." },
           ],
           info: "Le mode de victoire de la partie.",
         },
@@ -58,14 +58,14 @@
             { value: "offensive", label: "Offensive", icon: "⚔️", desc: "Peu de pièges, beaucoup de gros bras." },
             { value: "trap", label: "Piégeuse", icon: "🥧", desc: "Des tartes et des nains." },
             { value: "fast", label: "Rapide", icon: "🧚", desc: "Des lutins à gogo." },
-            { value: "loufoque", label: "Loufoque", icon: "👻", desc: "Avec des fantômes taquins.", needs: { specialPieces: true } },
+            { value: "loufoque", label: "Fantômes", icon: "👻", desc: "Avec des fantômes.", needs: { specialPieces: true } },
             { value: "custom", label: "Sur mesure", icon: "🛠️", desc: "Compose ton armée avec un budget." },
           ],
           info: "Tout le monde joue avec la même composition (équitable).",
         },
         { id: "armyBudget", label: "Budget de l'armée sur mesure", type: "chips", default: 150, options: [110, 130, 150, 180], showIf: { armyPreset: "custom" }, info: "Chaque pièce coûte des points. Plus le budget est élevé, plus l'armée est costaude." },
         { id: "customArmy", type: "armyEditor", default: null, showIf: { armyPreset: "custom" } },
-        { id: "specialPieces", label: "👻 Pièces spéciales", type: "bool", default: true, info: "Autorise le Fantôme Taquin (saute par-dessus un obstacle) dans les compositions." },
+        { id: "specialPieces", label: "👻 Pièces spéciales", type: "bool", default: true, info: "Autorise le Fantôme (saute par-dessus un obstacle) dans les compositions." },
         { id: "survivorsRevealed", label: "👁️ Les survivants restent dévoilés", type: "bool", default: true, info: "Activé = après un combat, la pièce gagnante reste visible de tous. Désactivé = mode mémoire, tu dois te souvenir de ce que tu as vu." },
       ],
     },

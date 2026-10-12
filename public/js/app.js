@@ -3,7 +3,19 @@
 // ============================================================
 (function () {
   const { $, $$, el, esc, store } = UI;
-  const { HOUSES } = GoliathPieces;
+  const { HOUSES, PIECES, ORDER } = GoliathPieces;
+
+  // Échelle des forces toujours visible pendant la partie
+  (function buildLadder() {
+    const box = $("#ladder-mini"); if (!box) return;
+    const ids = ORDER.filter((id) => PIECES[id].mobile && !PIECES[id].special);
+    ids.forEach((id, k) => {
+      const d = PIECES[id];
+      box.appendChild(el("span", { class: "ladder__step", title: d.name + " (force " + d.rank + ")" }, [el("i", { text: d.icon }), el("b", { text: String(d.rank) })]));
+      if (k < ids.length - 1) box.appendChild(el("span", { class: "ladder__sep", text: "›" }));
+    });
+    box.appendChild(el("p", { class: "muted small ladder__note", text: "Plus le chiffre est grand, plus la pièce est forte. Exception, le Rat (1) bat le Roi (10) s'il l'attaque." }));
+  })();
 
   const socket = io({ transports: ["websocket", "polling"] });
   let token = store.sget("goliath.token", null);
